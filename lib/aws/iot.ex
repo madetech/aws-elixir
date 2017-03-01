@@ -199,7 +199,7 @@ defmodule AWS.IoT do
   Deletes a registered CA certificate.
   """
   def delete_c_a_certificate(client, certificate_id, input, options \\ []) do
-    url = "/cacertificate/{caCertificateId}"
+    url = "/cacertificate/#{URI.encode(certificate_id)}"
     headers = []
     request(client, :delete, url, headers, input, options, nil)
   end
@@ -304,7 +304,7 @@ defmodule AWS.IoT do
   Describes a registered CA certificate.
   """
   def describe_c_a_certificate(client, certificate_id, options \\ []) do
-    url = "/cacertificate/{caCertificateId}"
+    url = "/cacertificate/#{URI.encode(certificate_id)}"
     headers = []
     request(client, :get, url, headers, nil, options, nil)
   end
@@ -675,7 +675,7 @@ defmodule AWS.IoT do
   Updates a registered CA certificate.
   """
   def update_c_a_certificate(client, certificate_id, input, options \\ []) do
-    url = "/cacertificate/{caCertificateId}"
+    url = "/cacertificate/#{URI.encode(certificate_id)}"
     headers = []
     request(client, :put, url, headers, input, options, nil)
   end
