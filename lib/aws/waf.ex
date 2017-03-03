@@ -472,7 +472,7 @@ defmodule AWS.WAF do
   Gets detailed information about a specified number of requests--a
   sample--that AWS WAF randomly selects from among the first 5,000 requests
   that your AWS resource received during a time range that you choose. You
-  can specify a sample size of up to 100 requests, and you can specify any
+  can specify a sample size of up to 500 requests, and you can specify any
   time range in the previous three hours.
 
   `GetSampledRequests` returns a time range, which is usually the time range
@@ -832,9 +832,6 @@ defmodule AWS.WAF do
   and `IPSets`) in a `Rule`, AWS WAF immediately takes the corresponding
   action, allow or block, and doesn't evaluate the request against the
   remaining `Rules` in the `WebACL`, if any.
-
-  </li> <li> The CloudFront distribution that you want to associate with the
-  `WebACL`.
 
   </li> </ul> To create and configure a `WebACL`, perform the following
   steps:

@@ -447,6 +447,13 @@ defmodule AWS.KMS do
   end
 
   @doc """
+  Returns a list of all tags for the specified customer master key (CMK).
+  """
+  def list_resource_tags(client, input, options \\ []) do
+    request(client, "ListResourceTags", input, options)
+  end
+
+  @doc """
   Returns a list of all grants for which the grant's `RetiringPrincipal`
   matches the one specified.
 
@@ -540,6 +547,35 @@ defmodule AWS.KMS do
   """
   def schedule_key_deletion(client, input, options \\ []) do
     request(client, "ScheduleKeyDeletion", input, options)
+  end
+
+  @doc """
+  Adds or overwrites one or more tags for the specified customer master key
+  (CMK).
+
+  Each tag consists of a tag key and a tag value. Tag keys and tag values are
+  both required, but tag values can be empty (null) strings.
+
+  You cannot use the same tag key more than once per CMK. For example,
+  consider a CMK with one tag whose tag key is `Purpose` and tag value is
+  `Test`. If you send a `TagResource` request for this CMK with a tag key of
+  `Purpose` and a tag value of `Prod`, it does not create a second tag.
+  Instead, the original tag is overwritten with the new tag value.
+  """
+  def tag_resource(client, input, options \\ []) do
+    request(client, "TagResource", input, options)
+  end
+
+  @doc """
+  Removes the specified tag or tags from the specified customer master key
+  (CMK).
+
+  To remove a tag, you specify the tag key for each tag to remove. You do not
+  specify the tag value. To overwrite the tag value for an existing tag, use
+  `TagResource`.
+  """
+  def untag_resource(client, input, options \\ []) do
+    request(client, "UntagResource", input, options)
   end
 
   @doc """
