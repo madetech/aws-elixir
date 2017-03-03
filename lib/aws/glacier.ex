@@ -1343,8 +1343,8 @@ defmodule AWS.Glacier do
     payload = encode_payload(input)
     headers = AWS.Request.sign_v4(client, method, url, headers, payload)
 
-    IO.puts "**** Sleeping for 1 second ****"
-    :timer.sleep(1000)
+    IO.puts "**** Sleeping for 5 second ****"
+    :timer.sleep(5000)
     perform_request(method, url, payload, headers, options, success_status_code)
   end
 
