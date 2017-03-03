@@ -245,7 +245,8 @@ defmodule AWS.Transcoder do
     payload = encode_payload(input)
     headers = AWS.Request.sign_v4(client, method, url, headers, payload)
 
-    :timer.sleep(100)
+    IO.puts "**** Sleeping for 1 second ****"
+    :timer.sleep(1000)
     perform_request(method, url, payload, headers, options, success_status_code)
   end
 
