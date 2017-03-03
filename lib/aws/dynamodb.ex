@@ -326,6 +326,14 @@ defmodule AWS.DynamoDB do
   end
 
   @doc """
+  Gives a description of the Time to Live (TTL) status on the specified
+  table.
+  """
+  def describe_time_to_live(client, input, options \\ []) do
+    request(client, "DescribeTimeToLive", input, options)
+  end
+
+  @doc """
   The `GetItem` operation returns a set of attributes for the item with the
   given primary key. If there is no matching item, `GetItem` does not return
   any data and there will be no `Item` element in the response.
@@ -516,6 +524,42 @@ defmodule AWS.DynamoDB do
   """
   def update_table(client, input, options \\ []) do
     request(client, "UpdateTable", input, options)
+  end
+
+  @doc """
+  Specify the lifetime of individual table items. The database automatically
+  removes the item at the expiration of the item. The UpdateTimeToLive method
+  will enable or disable TTL for the specified table. A successful
+  `UpdateTimeToLive` call returns the current `TimeToLiveSpecification`; it
+  may take up to one hour for the change to fully process.
+
+  TTL compares the current time in epoch time format to the time stored in
+  the TTL attribute of an item. If the epoch time value stored in the
+  attribute is less than the current time, the item is marked as expired and
+  subsequently deleted.
+
+  <note> The epoch time format is the number of seconds elapsed since
+  12:00:00 AM January 1st, 1970 UTC.
+
+  </note> DynamoDB deletes expired items on a best-effort basis to ensure
+  availability of throughput for other data operations.
+
+  <important> DynamoDB typically deletes expired items within two days of
+  expiration. The exact duration within which an item gets deleted after
+  expiration is specific to the nature of the workload. Items that have
+  expired and not been deleted will still show up in reads, queries, and
+  scans.
+
+  </important> As items are deleted, they are removed from any Local
+  Secondary Index and Global Secondary Index immediately in the same
+  eventually consistent way as a standard delete operation.
+
+  For more information, see [Time To
+  Live](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html)
+  in the Amazon DynamoDB Developer Guide.
+  """
+  def update_time_to_live(client, input, options \\ []) do
+    request(client, "UpdateTimeToLive", input, options)
   end
 
   @spec request(map(), binary(), map(), list()) ::

@@ -401,6 +401,8 @@ defmodule AWS.EFS do
                           headers)
     payload = encode_payload(input)
     headers = AWS.Request.sign_v4(client, method, url, headers, payload)
+
+    :timer.sleep(100)
     perform_request(method, url, payload, headers, options, success_status_code)
   end
 
