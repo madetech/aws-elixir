@@ -36,9 +36,20 @@ defmodule AWS.MobileAnalytics do
     payload = encode_payload(input)
     headers = AWS.Request.sign_v4(client, method, url, headers, payload)
 
-    IO.puts "**** Sleeping for 5 second ****"
-    :timer.sleep(5000)
-    perform_request(method, url, payload, headers, options, success_status_code)
+
+    request_with_delay(client, method, url, headers, input, options, success_status_code, payload)
+  end
+
+  defp request_with_delay(client, method, url, headers, input, options, success_status_code, payload) do
+    case perform_request(method, url, payload, headers, options, success_status_code) do
+      {:ok, response, status} ->
+        {:ok, response, status}
+      {:error, "Too Many Requests"} ->
+        :timer.sleep(10000)
+        request_with_delay(client, method, url, headers, input, options, success_status_code, payload)
+      {:error, error} ->
+        {:error, error}
+    end
   end
 
   defp perform_request(method, url, payload, headers, options, nil) do
